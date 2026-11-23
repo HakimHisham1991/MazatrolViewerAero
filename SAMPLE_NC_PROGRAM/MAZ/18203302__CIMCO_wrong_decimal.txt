@@ -1,0 +1,105 @@
+#18203302 (BINÆR-FORMAT) () (Size 68 Blocks) MATRIX MILLING 
+
+PNO. MAT.     INITIAL-Z  ATC MODE  MULTI MODE     MULTI FLAG  PITCH-X   PITCH-Y
+  0  ALUMINUM   10.         0             OFF        *          *        *
+
+PNO. UNIT    TURN POS X    TURN POS Y    TURN POS Z    ANGLE C     ANGLE A
+  1  INDEX      0.            0.            0.          27.          0.
+
+PNO. UNIT   ADD. WPC       X            Y           th           Z           C          A
+  2  WPC- 0             -27.797      -41.8          0.        -63.235                  0.
+
+PNO. UNIT     DEPTH   SRV-Z    SRV-R      RGH    FIN-Z      FIN-R   START   END    INTER-R    CHMF
+  3  LINE LFT   0.     0.8     0.05         9               0.01    OPEN   OPEN     0.         0.
+SNO. TOOL         NOM-O   NO  APRCH-1   APRCH-2 TYPE  ZFD DEP-Z   WID-R  C-SP  FR          M   M   M
+R 1  F-MILL      6.3       1 -5.19345    8.19     <>   G01 0.3    0.    2090   0.05445      8   1
+FIG  PTN         X          Y       R/th            I           J       P       CNR     R-FEED  RGH
+  1  LINE      -3.7        5.03
+  2  LINE       8.5        5.03
+
+PNO. UNIT     DEPTH   SRV-Z    SRV-R      RGH    FIN-Z      FIN-R   START   END    INTER-R    CHMF
+  4  LINE LFT   3.3    3.3     0.05         9               0.01    OPEN   OPEN     0.         0.
+SNO. TOOL         NOM-O   NO  APRCH-1   APRCH-2 TYPE  ZFD DEP-Z   WID-R  C-SP  FR          M   M   M
+R 1  F-MILL      6.3       2 -5.19345    8.21     <>   G01 0.3    0.    2090   0.05445      8   1
+FIG  PTN         X          Y       R/th            I           J       P       CNR     R-FEED  RGH
+  1  LINE      -3.7        5.05
+  2  LINE       8.5        5.05
+
+PNO. UNIT     DEPTH   SRV-Z    SRV-R      RGH    FIN-Z      FIN-R   START   END    INTER-R    CHMF
+  5  LINE LFT   1.4    2.2     0.05         9               0.01    OPEN   OPEN     0.         0.
+SNO. TOOL         NOM-O   NO  APRCH-1   APRCH-2 TYPE  ZFD DEP-Z   WID-R  C-SP  FR          M   M   M
+R 1  F-MILL      3.2       4 -4.48462    4.66     <>   G01 0.3    0.    1079   0.05         8   1
+FIG  PTN         X          Y       R/th            I           J       P       CNR     R-FEED  RGH
+  1  LINE      -3.4        3.05
+  2  LINE       8.5        3.05
+
+PNO. UNIT     DEPTH   SRV-Z    SRV-R      RGH    FIN-Z      FIN-R   START   END    INTER-R    CHMF
++  6 LINE LFT   5.     2.5     0.05         9               0.01    OPEN   OPEN     0.         0.
+SNO. TOOL         NOM-O   NO  APRCH-1   APRCH-2 TYPE  ZFD DEP-Z   WID-R  C-SP  FR          M   M   M
+R 1  END MILL    1.6       9 -1.89524    3.41     <>   G01 0.05   0.     514   0.0405       8   1
+FIG  PTN         X          Y       R/th            I           J       P       CNR     R-FEED  RGH
+  1  LINE      -1.1        2.6
+  2  LINE       0.         2.6
+  3  LINE       0.         3.9                                                  0.6
+  4  LINE      -0.19904    4.42867
+  5  LINE      -0.5452     5.3481
+  6  LINE      -0.7557     5.90721
+  7  CW         3.43068    7.55632   2.25          1.35        6.7
+  8  LINE       5.03836    3.65
+  9  LINE       5.17597    3.31562
+ 10  LINE       5.46253    2.61934
+ 11  LINE       5.67259    2.10894
+ 12  CW         3.79614   -0.05      1.6           4.193       1.5
+ 13  CCW        3.39927    0.        1.6           3.39927    -1.6
+ 14  LINE       2.2        0.                                                   1.
+ 15  LINE       2.2       -2.55
+ 16  LINE       3.2       -2.55
+
+PNO. UNIT     DEPTH   SRV-Z    SRV-R      RGH    FIN-Z      FIN-R   START   END    INTER-R    CHMF
++  7 LINE LFT   5.4    0.65    0.05         9               0.01    OPEN   OPEN     0.         0.
+SNO. TOOL         NOM-O   NO  APRCH-1   APRCH-2 TYPE  ZFD DEP-Z   WID-R  C-SP  FR          M   M   M
+R 1  END MILL    1.6   G  14 -1.89524    3.41     <>   G01 0.2    0.     326   0.015        8   1
+F 2  END MILL    1.6   G  15 -1.90467    3.4      <>   G01 0.     0.     326   0.015        8   1
+FIG  PTN         X          Y       R/th            I           J       P       CNR     R-FEED  RGH
+  1  LINE      -1.1        2.6
+  2  LINE       0.         2.6
+  3  LINE       0.         3.9                                                  0.6
+  4  LINE      -0.19904    4.42867
+  5  LINE      -0.5452     5.3481
+  6  LINE      -0.7557     5.90721
+  7  CW         3.43068    7.55632   2.25          1.35        6.7
+  8  LINE       5.03836    3.65
+  9  LINE       5.17597    3.31562
+ 10  LINE       5.46253    2.61934
+ 11  LINE       5.67259    2.10894
+ 12  CW         3.79614   -0.05      1.6           4.193       1.5
+ 13  CCW        3.39927    0.        1.6           3.39927    -1.6
+ 14  LINE       2.2        0.                                                   1.
+ 15  LINE       2.2       -2.55
+ 16  LINE       3.2       -2.55
+
+PNO. UNIT     DEPTH   SRV-Z    SRV-R      RGH    FIN-Z      FIN-R   START   END    INTER-R    CHMF
+  8  LINE LFT   7.85   2.6     0.05         9               0.02    OPEN   OPEN     0.         0.
+SNO. TOOL         NOM-O   NO  APRCH-1   APRCH-2 TYPE  ZFD DEP-Z   WID-R  C-SP  FR          M   M   M
+R 1  END MILL    0.8      17  6.10033    4.09     <>   G01 0.1    0.     181   0.012        8   1
+FIG  PTN         X          Y       R/th            I           J       P       CNR     R-FEED  RGH
+  1  LINE       5.5        4.5
+  2  LINE       4.6886     4.5
+  3  LINE       5.3882     2.8
+  4  LINE       6.1        2.8
+
+PNO. UNIT     DEPTH   SRV-Z    SRV-R      RGH    FIN-Z      FIN-R   START   END    INTER-R    CHMF
+  9  LINE LFT   7.85   2.6     0.05         9               0.      OPEN   OPEN     0.         0.
+SNO. TOOL         NOM-O   NO  APRCH-1   APRCH-2 TYPE  ZFD DEP-Z   WID-R  C-SP  FR          M   M   M
+R 1  END MILL    0.8      17  6.10033    4.09     <>   G01 0.5    0.     181   0.012        8   1
+FIG  PTN         X          Y       R/th            I           J       P       CNR     R-FEED  RGH
+  1  LINE       5.5        4.5
+  2  LINE       4.6886     4.5
+  3  LINE       5.3882     2.8
+  4  LINE       6.1        2.8
+
+PNO. UNIT     WORK No.                             REPEAT  No.
+ 10  SUB PRO  18203303                               0      0
+
+PNO. UNIT  CONTI NUMBER ATC      RETURN          WORK No.                                     EXECTE
+ 11  END    0       0   0        1            

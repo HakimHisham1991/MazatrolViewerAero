@@ -1,0 +1,10 @@
+C:\Users\Public\Documents\MazatrolViewerAero\MazatrolViewerAero\publish\MazatrolViewerAero-win-x64\MazatrolViewerAero.pdb
+C:\Users\Public\Documents\MazatrolViewerAero\MazatrolViewerAero\publish\MazatrolViewerAero-win-x64\user_defined_language\CLS_V7.xml
+C:\Users\Public\Documents\MazatrolViewerAero\MazatrolViewerAero\publish\MazatrolViewerAero-win-x64\user_defined_language\DMIS.xml
+C:\Users\Public\Documents\MazatrolViewerAero\MazatrolViewerAero\publish\MazatrolViewerAero-win-x64\user_defined_language\G_code_V10.xml
+C:\Users\Public\Documents\MazatrolViewerAero\MazatrolViewerAero\publish\MazatrolViewerAero-win-x64\user_defined_language\Heidenhain_ISO-V4.xml
+C:\Users\Public\Documents\MazatrolViewerAero\MazatrolViewerAero\publish\MazatrolViewerAero-win-x64\user_defined_language\Heidenhain_V6.xml
+C:\Users\Public\Documents\MazatrolViewerAero\MazatrolViewerAero\publish\MazatrolViewerAero-win-x64\user_defined_language\NCI_V5.xml
+C:\Users\Public\Documents\MazatrolViewerAero\MazatrolViewerAero\publish\MazatrolViewerAero-win-x64\user_defined_language\post_dat-V2.xml
+C:\Users\Public\Documents\MazatrolViewerAero\MazatrolViewerAero\publish\MazatrolViewerAero-win-x64\user_defined_language\Siemens-V2.xml
+C:\Users\Public\Documents\MazatrolViewerAero\MazatrolViewerAero\publish\MazatrolViewerAero-win-x64\MazatrolViewerAero.exe

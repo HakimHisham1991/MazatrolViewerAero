@@ -1,0 +1,138 @@
+{
+  "DataPath": "C:\\Users\\Public\\Documents\\MazatrolViewerAero\\MazatrolViewerAero\\bin\\Release\\net10.0-windows\\Data",
+  "RegPass": false,
+  "InsertProgramInfo": true,
+  "AddBinaryLine": false,
+  "ShowToolbar": true,
+  "ShowStatusBar": true,
+  "MatrixMachineId": 3,
+  "Head": 1,
+  "LastFolder": "C:\\Users\\Public\\Documents\\MazatrolViewerAero\\MazatrolViewerAero\\SAMPLE_NC_PROGRAM\\MAZ",
+  "Recent": [
+    "C:\\Users\\Public\\Documents\\MazatrolViewerAero\\MazatrolViewerAero\\SAMPLE_NC_PROGRAM\\MAZ\\18203301.html",
+    "C:\\Users\\Public\\Documents\\MazatrolViewerAero\\MazatrolViewerAero\\SAMPLE_NC_PROGRAM\\MAZ\\18203300.html",
+    "C:\\Users\\Public\\Documents\\MazatrolViewerAero\\MazatrolViewerAero\\SAMPLE_NC_PROGRAM\\MAZ\\18203300__CIMCO_wrong_decimal.txt",
+    "C:\\Users\\Public\\Documents\\MazatrolViewerAero\\MazatrolViewerAero\\SAMPLE_NC_PROGRAM\\MAZ\\18203300.MAZ",
+    "C:\\Users\\Public\\Documents\\MazatrolViewerAero\\MazatrolViewerAero\\SAMPLE_NC_PROGRAM\\MAZ\\18203301.MAZ",
+    "C:\\Users\\Public\\Documents\\MazatrolViewerAero\\MazatrolViewerAero\\SAMPLE_NC_PROGRAM\\T6M\\7005400.t6m",
+    "C:\\Users\\Public\\Documents\\MazatrolViewerAero\\MazatrolViewerAero\\SAMPLE_NC_PROGRAM\\T6M\\7005400.html",
+    "C:\\Users\\Public\\Documents\\MazatrolViewerAero\\MazatrolViewerAero\\SAMPLE_NC_PROGRAM\\T6M\\7005300.t6m"
+  ],
+  "Left": -7,
+  "Top": 0,
+  "Width": 974,
+  "Height": 1039,
+  "Maximized": false,
+  "Families": {
+    "M640M": {
+      "Machines": [
+        "Default (VARIAXIS)"
+      ],
+      "Current": "Default (VARIAXIS)",
+      "Inch": false,
+      "ValidDetail": false,
+      "RotarySubmicron": false,
+      "R392": 0,
+      "R393": 0,
+      "R394": 0
+    },
+    "M640MPro": {
+      "Machines": [
+        "Default"
+      ],
+      "Current": "Default",
+      "Inch": false,
+      "ValidDetail": false,
+      "RotarySubmicron": false,
+      "R392": 0,
+      "R393": 0,
+      "R394": 0
+    },
+    "M640T": {
+      "Machines": [
+        "QTN MSY"
+      ],
+      "Current": "QTN MSY",
+      "Inch": false,
+      "ValidDetail": false,
+      "RotarySubmicron": false,
+      "R392": 0,
+      "R393": 0,
+      "R394": 0
+    },
+    "M640MT": {
+      "Machines": [
+        "SQT MSY"
+      ],
+      "Current": "SQT MSY",
+      "Inch": false,
+      "ValidDetail": false,
+      "RotarySubmicron": false,
+      "R392": 0,
+      "R393": 0,
+      "R394": 0
+    },
+    "M640MTPro": {
+      "Machines": [
+        "INTE100SY"
+      ],
+      "Current": "INTE100SY",
+      "Inch": false,
+      "ValidDetail": false,
+      "RotarySubmicron": false,
+      "R392": 0,
+      "R393": 0,
+      "R394": 0
+    },
+    "MatrixIntegrex": {
+      "Machines": [
+        "INTEGREX_ST"
+      ],
+      "Current": "INTEGREX_ST",
+      "Inch": false,
+      "ValidDetail": false,
+      "RotarySubmicron": false,
+      "R392": 0,
+      "R393": 0,
+      "R394": 0
+    },
+    "MatrixTurning": {
+      "Machines": [
+        "TURNING_(QTN)"
+      ],
+      "Current": "TURNING_(QTN)",
+      "Inch": false,
+      "ValidDetail": false,
+      "RotarySubmicron": false,
+      "R392": 0,
+      "R393": 0,
+      "R394": 0
+    },
+    "MatrixMachining": {
+      "Machines": [
+        "MACHINING_(VRX)"
+      ],
+      "Current": "MACHINING_(VRX)",
+      "Inch": false,
+      "ValidDetail": false,
+      "RotarySubmicron": false,
+      "R392": 0,
+      "R393": 0,
+      "R394": 0
+    },
+    "MatrixIntegrexE": {
+      "Machines": [
+        "INTEGREX-e _HS"
+      ],
+      "Current": "INTEGREX-e _HS",
+      "Inch": false,
+      "ValidDetail": true,
+      "RotarySubmicron": false,
+      "R392": 0,
+      "R393": 38144,
+      "R394": 8365
+    }
+  },
+  "CheckFile": "C:\\Users\\Public\\Documents\\MazatrolViewerAero\\MazatrolViewerAero\\bin\\Release\\net10.0-windows\\Data\\Chk",
+  "HtmlFile": "C:\\Users\\Public\\Documents\\MazatrolViewerAero\\MazatrolViewerAero\\bin\\Release\\net10.0-windows\\Data\\Mazpro.html"
+}

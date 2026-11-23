@@ -1,0 +1,35 @@
+# (BINÆR-FORMAT) () (Size 17 Blocks) SMOOTH MILLING 
+
+PNO. MAT.     INITIAL-Z  ATC MODE  MULTI MODE     MULTI FLAG  PITCH-X   PITCH-Y
+  0  ALUMINUM   10.         0         OFFSET TYPE    *          *        *
+OFS           X             Y           th            Z
+  1         0.            0.          0.            0.
+
+PNO. UNIT    TURN POS X    TURN POS Y    TURN POS Z    ANGLE C     ANGLE A
+  1  INDEX      0.            0.            0.           0.          0.
+
+UNo. UNIT     ADD. WPC         X           Y          th        Z         C         A      INITIAL-Z
+  2  WPC- 0                  0.          0.          0.        0.       0.        0.         COMMON
+
+PNO. UNIT      DEPTH    SRV-Z              BTM         FIN-Z
+  3  FCE MILL   0.       2.5                9         0.01
+SNO. TOOL         NOM-O   NO APRCH-1    APRCH-2 TYPE  ZFD DEP-Z   WID-R  C-SP  FR          M   M   M
+R 1  END MILL    3.2         -23.1      -9.36   XBI   *    0.1    2.24  300.   0.05         8   1
+F 2  END MILL    3.2         -23.1      -9.36   XBI   *    0.     2.24  350.   0.02         8   1
+FIG  PTN         X          Y       R/th            I           J       P       CNR     R-FEED  RGH
+  1  SQR        -21.       -10.      21.        10.
+
+PNO. UNIT     DEPTH   SRV-Z    SRV-R      RGH    FIN-Z      FIN-R   START   END    INTER-R    CHMF
+  4  LINE LFT   4.5    4.5     0.2          9               0.01    OPEN   OPEN     0.5        0.
+SNO. TOOL         NOM-O   NO  APRCH-1   APRCH-2 TYPE  ZFD DEP-Z   WID-R  C-SP  FR          M   M   M
+R 1  END MILL    3.2         -21.91     -10.27354 <>   G01 0.3    0.    200.   0.04         8   1
+F 2  END MILL    1.6         -21.1      -9.92195  <>   G01 0.     0.    250.   0.02         8   1
+FIG  PTN         X          Y       R/th            I           J       P       CNR     R-FEED  RGH
+  1  LINE     -20.3       -9.
+  2  LINE     -20.3        8.
+  3  LINE      20.3        8.
+  4  LINE      20.3       -8.
+  5  LINE     -21.        -8.
+
+PNO. UNIT  CONTI NUMBER ATC      RETURN          WORK No.                                     EXECTE
+  5  END    0       0   0        1            

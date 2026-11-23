@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <Using Include="System.IO" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>MazatrolViewerAero</RootNamespace>
+    <AssemblyName>MazatrolViewerAero</AssemblyName>
+    <Product>MazatrolViewerAero</Product>
+    <Authors>Abdul Hakim Mohd Hisham</Authors>
+    <Copyright>Copyright (c) 2026 Abdul Hakim Mohd Hisham</Copyright>
+    <Version>1.4.3</Version>
+    <Description>Mazatrol program viewer</Description>
+    <ApplicationIcon>Assets\App.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Resource Include="Assets\App.ico" />
+    <EmbeddedResource Include="Decoding\Structures\*.xml" />
+    <Content Include="user_defined_language\*.xml" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

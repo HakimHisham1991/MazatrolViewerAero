@@ -1,0 +1,2 @@
+C:\Users\Public\Documents\Mazatrol_Viewer_Kim\MazatrolViewerAero\publish\MazatrolViewerAero-win-x64\MazatrolViewerAero.pdb
+C:\Users\Public\Documents\Mazatrol_Viewer_Kim\MazatrolViewerAero\publish\MazatrolViewerAero-win-x64\MazatrolViewerAero.exe

@@ -1,0 +1,44 @@
+﻿<Window x:Class="MazatrolViewerAero.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MazatrolViewerAero"
+        Icon="Assets/App.ico"
+        Height="760"
+        Width="1100"
+        Background="#F4F7FB"
+        FontFamily="Segoe UI"
+        WindowStartupLocation="CenterScreen"
+        AllowDrop="True">
+    <DockPanel>
+        <Menu x:Name="MainMenu" DockPanel.Dock="Top"/>
+        <ToolBarTray DockPanel.Dock="Top" Background="{StaticResource AeroBar}">
+            <ToolBar x:Name="MainToolBar" Background="{StaticResource AeroBar}"/>
+        </ToolBarTray>
+        <StatusBar x:Name="MainStatus" DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <TextBlock x:Name="StatusText" MinWidth="120"/>
+            </StatusBarItem>
+            <Separator/>
+            <StatusBarItem>
+                <TextBlock x:Name="StatusFile"/>
+            </StatusBarItem>
+            <Separator/>
+            <StatusBarItem>
+                <TextBlock x:Name="StatusMachine"/>
+            </StatusBarItem>
+        </StatusBar>
+        <DockPanel>
+            <TabControl x:Name="DocumentTabs" DockPanel.Dock="Top" Visibility="Collapsed"
+                        Background="{StaticResource AeroBar}" BorderThickness="0" Padding="2,2,2,0">
+                <TabControl.Template>
+                    <ControlTemplate TargetType="TabControl">
+                        <TabPanel IsItemsHost="True" Background="{StaticResource AeroBar}"/>
+                    </ControlTemplate>
+                </TabControl.Template>
+            </TabControl>
+            <Border BorderBrush="{StaticResource AeroLine}" BorderThickness="0,1,0,0">
+                <WebBrowser x:Name="Viewer"/>
+            </Border>
+        </DockPanel>
+    </DockPanel>
+</Window>

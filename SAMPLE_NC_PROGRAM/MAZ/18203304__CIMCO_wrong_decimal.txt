@@ -1,0 +1,57 @@
+#18203304 (BINÆR-FORMAT) () (Size 23 Blocks) MATRIX MILLING 
+
+PNO. MAT.     INITIAL-Z  ATC MODE  MULTI MODE     MULTI FLAG  PITCH-X   PITCH-Y
+  0  ALUMINUM   10.         0         OFFSET TYPE    *          *        *
+OFS           X             Y           th            Z
+  1         0.            0.          0.            0.
+
+PNO. UNIT    TURN POS X    TURN POS Y    TURN POS Z    ANGLE C     ANGLE A
+  1  INDEX      0.            0.            0.           9.          0.
+
+PNO. UNIT   ADD. WPC       X            Y           th           Z           C          A
+  2  WPC- 0             -28.2        -41.8          0.        -63.235                  0.
+
+PNO. UNIT        DIA      DEPTH     CHMF
+  3  DRILLING   1.       1.2       0.
+SNO. TOOL      NOM        NO HOLE-O  HOLE-DEP   PRE-DIA   PRE-DEP   RGH  DEPTH C-SP   FR   M   M   M
+  1  DRILL       1.       70  1.      1.2        0.         100     PCK1 T 0   145  0.004   8  51   1
+FIG  PTN        Z         X         Y        AN1      AN2       T1       T2      F  M  N  P Q R
+  1  PT     -3.8      -1.35      6.7         *          *         *        *     *  *   * 0 0 0
+
+PNO. UNIT     TORNAD    DIA      DEPTH    CHMF   BTM   PRE-DIA   CHMF  PITCH1    PITCH2
+  4  CIRC MIL   1      1.45      1.2      0.       4    0.       0.               0.05
+SNO. TOOL      NOM        NO HOLE-O  HOLE-DEP   PRE-DIA   PRE-DEP   RGH  DEPTH C-SP   FR   M   M   M
+  1  END MILL    1.       71  1.45    1.2        0.         CCW     4    T 0   160  0.015   8   1
+FIG  PTN        Z         X         Y        AN1      AN2       T1       T2      F  M  N  P Q R
+  1  PT     -3.8      -1.35      6.7         *          *         *        *     *  *   * 0 0 0
+
+PNO. UNIT     TORNAD    DIA      DEPTH    CHMF   BTM   PRE-DIA   CHMF  PITCH1    PITCH2
+  5  CIRC MIL   1      1.49      1.2      0.       4    0.       0.               0.05
+SNO. TOOL      NOM        NO HOLE-O  HOLE-DEP   PRE-DIA   PRE-DEP   RGH  DEPTH C-SP   FR   M   M   M
+  1  END MILL    1.       71  1.49    1.2        0.         CCW     4    T 0   160  0.015   8   1
+FIG  PTN        Z         X         Y        AN1      AN2       T1       T2      F  M  N  P Q R
+  1  PT     -3.8      -1.35      6.7         *          *         *        *     *  *   * 0 0 0
+
+PNO. UNIT     TORNAD    DIA      DEPTH    CHMF   BTM   PRE-DIA   CHMF  PITCH1    PITCH2
+  6  CIRC MIL   1      1.5       1.2      0.       4    0.       0.               0.05
+SNO. TOOL      NOM        NO HOLE-O  HOLE-DEP   PRE-DIA   PRE-DEP   RGH  DEPTH C-SP   FR   M   M   M
+  1  END MILL    1.       71  1.5     1.2        0.         CCW     4    T 0   160  0.01    8   1
+FIG  PTN        Z         X         Y        AN1      AN2       T1       T2      F  M  N  P Q R
+  1  PT     -3.8      -1.35      6.7         *          *         *        *     *  *   * 0 0 0
+
+PNO. UNIT     TORNAD    DIA      DEPTH    CHMF   BTM   PRE-DIA   CHMF  PITCH1    PITCH2
+  7  CIRC MIL   1      1.518     1.2      0.       4    0.       0.               0.05
+SNO. TOOL      NOM        NO HOLE-O  HOLE-DEP   PRE-DIA   PRE-DEP   RGH  DEPTH C-SP   FR   M   M   M
+  1  END MILL    1.       71  1.5095  1.2        0.         CCW     4    T 0   160  0.005   8   1
+FIG  PTN        Z         X         Y        AN1      AN2       T1       T2      F  M  N  P Q R
+  1  PT     -3.8      -1.35      6.7         *          *         *        *     *  *   * 0 0 0
+
+PNO. UNIT     MODE   POS-B      POS-C     DIA      DEPTH     CHMF   PRE-REAM CHP
+  8  REAMING                             1.          8.3    0.05      DRILL   0
+SNO. TOOL      NOM        NO HOLE-O  HOLE-DEP   PRE-DIA   PRE-DEP   RGH  DEPTH C-SP   FR   M   M   M
+  1  DRILL       1.       72  1.      8.2        0.         100     DRIL T 0   100  0.004   8  51   1
+FIG  PTN        Z         X         Y        AN1      AN2       T1       T2      F  M  N  P Q R
+  1  PT     -3.8      -1.35      6.7         *          *         *        *     *  *   * 0 0 0
+
+PNO. UNIT  CONTI NUMBER ATC      RETURN          WORK No.                                     EXECTE
+  9  END    0       0   0        1            

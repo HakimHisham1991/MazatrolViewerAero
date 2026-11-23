@@ -1,0 +1,30 @@
+How to build and run MazatrolViewerAero
+Version 1.4.1
+
+Requirements: .NET 10 SDK and Windows.
+
+cd C:\Users\Public\Documents\MazatrolViewerAero\MazatrolViewerAero
+dotnet build -c Release
+
+Run the built program:
+C:\Users\Public\Documents\MazatrolViewerAero\MazatrolViewerAero\bin\Release\net10.0-windows\MazatrolViewerAero.exe
+
+Or from the project folder:
+dotnet run -c Release
+
+The program opens directly. There is no password.
+
+Open a Mazatrol program with File > Open, or drag a file onto the window.
+Supported files: .m6m .pba .t6m .t6i .pbb .pbd .pbe .pbf .pbm .pbg .maz .m6p .nc
+
+Portable copy, one exe, no .NET install required:
+dotnet publish -c Release -p:PublishProfile=win-x64-singlefile
+
+That writes:
+publish\MazatrolViewerAero-win-x64\MazatrolViewerAero.exe
+
+Copy that exe to any Windows 64-bit PC and run it. The first start unpacks native display libraries into the Windows temp folder. The program does not install anything.
+
+Settings and the generated program page, next to the exe:
+Data\settings.json
+Data\Mazpro.html

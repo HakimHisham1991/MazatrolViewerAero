@@ -1,0 +1,319 @@
+<?xml version='1.0' encoding='utf-8'?>
+<data>
+    <unit id="1" name="MAT">
+        <parameter name="MAT." pos="84" type="text" />
+        <parameter name="OD-MAX" pos="64" type="readData" />
+        <parameter name="ID-MIN" pos="68" type="readData" />
+        <parameter name="LENGTH" pos="72" type="readData" />
+        <parameter name="WORK FACE" pos="76" type="readData" />
+        <parameter name="ATC MODE" pos="0" type="blank" />
+        <parameter name="RPM" pos="20" type="wholeNumber" blank="1" />
+        <parameter name="LTUR DIA" pos="0" type="blank" />
+    </unit>
+    <unit id="2" name="WPC-" />
+    <unit id="3" name="OFFSET" />
+    <unit id="4" name="END">
+        <parameter name="CONTI." pos="10" type="readFullNumber2B" zero="1" />
+        <parameter name="REPEAT" pos="0" type="blank" />
+        <parameter name="SHIFT" pos="16" type="readData" />
+        <parameter name="NUMBER" pos="9" type="readFullNumber1B" zero="1" />
+        <parameter name="ATC" pos="0" type="NA" />
+        <parameter name="RETURN" pos="16" type="readPattern">
+            <enum name="ZERO PT" value="0" type="" />
+        </parameter>
+        <parameter name="LOW RET." pos="0" type="blank" />
+        <parameter name="WORK No." pos="0" type="NA" />
+        <parameter name="EXECTE" pos="0" type="NA" />
+    </unit>
+    <unit id="5" name="SUB PROGRAM" />
+    <unit id="6" name="MANL PRG">
+        <parameter name="CHANGE-PT" pos="0" type="readPattern">
+            <enum name="TBD-0" value="1" type="" />
+            <enum name="TBD-1" value="2" type="" />
+            <enum name="TBD-2" value="4" type="" />
+        </parameter>
+        <parameter name="TOOL" pos="84" type="text" />
+        <parameter name="NOM-Ø" pos="64" type="readData" />
+        <parameter name="No." pos="68" type="readFullNumber2B" />
+    </unit>
+    <unit id="7" name="M-CODE">
+        <parameter name="No." pos="0" type="blank" />
+        <parameter name="M1" pos="36" type="readFullNumber2B" blank="1" />
+        <parameter name="M2" pos="38" type="readFullNumber2B" blank="1" />
+        <parameter name="M3" pos="40" type="readFullNumber2B" blank="1" />
+        <parameter name="M4" pos="42" type="readFullNumber2B" blank="1" />
+        <parameter name="M5" pos="44" type="readFullNumber2B" blank="1" />
+        <parameter name="M6" pos="46" type="readFullNumber2B" blank="1" />
+        <parameter name="M7" pos="48" type="readFullNumber2B" blank="1" />
+        <parameter name="M8" pos="50" type="readFullNumber2B" blank="1" />
+        <parameter name="M9" pos="52" type="readFullNumber2B" blank="1" />
+        <parameter name="M10" pos="54" type="readFullNumber2B" blank="1" />
+        <parameter name="M11" pos="56" type="readFullNumber2B" blank="1" />
+        <parameter name="M12" pos="58" type="readFullNumber2B" blank="1" />
+    </unit>
+    <unit id="8" name="MMS" />
+    <unit id="9" name="NA" />
+    <unit id="10" name="PALLET CHANGE" />
+    <unit id="11" name="PROC END" />
+    <unit id="12" name="INDEX" />
+    <unit id="32" name="DRILLING">
+        <parameter name="MODE" pos="20" type="readPattern">
+            <enum name="XC" value="66" type="" />
+            <enum name="XC" value="67" type="" />
+            <enum name="ZY" value="68" type="" />
+            <enum name="XY" value="69" type="" />
+        </parameter>
+        <parameter name="POS-C" pos="0" type="NA" />
+        <parameter name="DIA" pos="36" type="readData" />
+        <parameter name="DEPTH" pos="40" type="readData" />
+        <parameter name="CHMF" pos="44" type="readData" zero="1" />
+    </unit>
+    <unit id="48" name="BAR">
+        <parameter name="PART" pos="20" type="readPattern">
+            <enum name="OUT" value="1" type="" />
+            <enum name="FACE" value="5" type="" />
+            <enum name="BACK" value="7" type="" />
+        </parameter>
+        <parameter name="CPT-X" pos="36" type="readData" zero="1" />
+        <parameter name="CPT-Z" pos="40" type="readData" zero="1" />
+        <parameter name="FIN-X" pos="52" type="readData" zero="1" />
+        <parameter name="FIN-Z" pos="56" type="readData" zero="1" />
+    </unit>
+    <unit id="49" name="CPY" />
+    <unit id="50" name="NA" />
+    <unit id="51" name="FACING">
+        <parameter name="PART" pos="0" type="NA" />
+        <parameter name="FIN-Z" pos="56" type="readData" zero="1" />
+    </unit>
+    <unit id="52" name="THREAD">
+        <parameter name="PART" pos="0" type="partType" />
+        <parameter name="CHAMF" pos="0" type="readData" />
+        <parameter name="LEAD" pos="56" type="readData" />
+        <parameter name="ANG" pos="0" type="readData" />
+        <parameter name="MULTI" pos="0" type="readData" />
+        <parameter name="HGT" pos="40" type="readData" />
+    </unit>
+    <unit id="53" name="T.GROOVE">
+        <parameter name="PART" pos="20" type="readPattern">
+            <enum name="OUT" value="1" type="" />
+        </parameter>
+        <parameter name="PAT." pos="22" type="readFullNumber2B" />
+        <parameter name="No." pos="24" type="readFullNumber2B" />
+        <parameter name="PITCH" pos="40" type="readData" />
+        <parameter name="WIDTH" pos="0" type="NA" />
+        <parameter name="FIN" pos="52" type="readData" />
+    </unit>
+    <unit id="54" name="T.DRILL">
+        <parameter name="DIA" pos="36" type="readData" />
+    </unit>
+    <unit id="55" name="T.TAP" />
+    <unit id="161" name="SNo">
+        <parameter name="G0" pos="20" type="readFullNumber2B" />
+        <parameter name="G1" pos="22" type="readFullNumber2B" />
+        <parameter name="DATA1_L" pos="8" type="readLetter" />
+        <parameter name="DATA1_V" pos="36" type="readData" />
+        <parameter name="DATA2_L" pos="9" type="readLetter" />
+        <parameter name="DATA2_V" pos="40" type="readFullNumber2B" />
+        <parameter name="DATA3_L" pos="10" type="readLetter" />
+        <parameter name="DATA3_V" pos="44" type="readData" />
+        <parameter name="DATA4_L" pos="11" type="readLetter" />
+        <parameter name="DATA4_V" pos="48" type="readData" />
+        <parameter name="DATA5_L" pos="12" type="readLetter" />
+        <parameter name="DATA5_V" pos="52" type="readData" />
+        <parameter name="MCODE" pos="24" type="readFullNumber2B" />
+    </unit>
+    <unit id="170" name="FIG">
+        <parameter name="SPT-X" pos="36" type="readData" zero="1" />
+        <parameter name="SPT-Z" pos="40" type="readData" zero="1" />
+        <parameter name="FPT-X" pos="44" type="readData" zero="1" />
+        <parameter name="FPT-Z" pos="48" type="readData" zero="1" />
+    </unit>
+    <unit id="171" name="FIG">
+        <parameter name="SPT-X" pos="36" type="readData" />
+        <parameter name="SPT-Z" pos="40" type="readData" />
+        <parameter name="FPT-X" pos="44" type="readData" />
+        <parameter name="FPT-Z" pos="48" type="readData" />
+    </unit>
+    <unit id="173" name="FIG">
+        <parameter name="SPT-Z" pos="40" type="readData" />
+        <parameter name="FPT-Z" pos="48" type="readData" />
+    </unit>
+    <unit id="180" name="SNo">
+        <paremeter name="TNo" pos="0" type="readFullNumber2B" />
+        <paremeter name="PAT" pos="22" type="readFullNumber2B" />
+        <paremeter name="DEP-1" pos="48" type="readData" />
+        <paremeter name="DEP-2/NUM" pos="52" type="readData" />
+        <paremeter name="DEP-3" pos="56" type="readData" />
+        <paremeter name="FIN-X" pos="0" type="NA" />
+        <paremeter name="FIN-Z" pos="0" type="NA" />
+        <paremeter name="C-SP" pos="60" type="readFullNumber2B" />
+        <paremeter name="FR" pos="64" type="readData" />
+        <paremeter name="M" pos="24" type="readFullNumber2B" />
+        <paremeter name="M" pos="0" type="readFullNumber2B" />
+    </unit>
+    <unit id="168" name="FIG">
+        <parameter name="PTN" pos="8" type="readPattern">
+            <enum name="LIN" value="1" type="" />
+            <enum name="TPR" value="2" type="" />
+            <enum name="ARC2" value="4" type="" />
+            <enum name="CTR" value="5" type="" />
+        </parameter>
+        <parameter name="S-CNR" pos="52" type="readData" />
+        <parameter name="SPT-X" pos="36" type="readData" visible="TPR,ARC2,CTR" />
+        <parameter name="SPT-Z" pos="40" type="readData" visible="TPR" />
+        <parameter name="FPT-X" pos="44" type="readData" />
+        <parameter name="FPT-Z" pos="48" type="readData" />
+        <parameter name="F-CNR/$" pos="56" type="readData" />
+        <parameter name="R/th" pos="0" type="NA" />
+        <parameter name="RGH" pos="0" type="readData" />
+    </unit>
+    <unit id="172" name="FIG">
+        <parameter name="PTN" pos="0" type="wholeNumber" />
+        <parameter name="S-CNR" pos="52" type="readData" />
+        <parameter name="SPT-X" pos="36" type="readData" />
+        <parameter name="SPT-Z" pos="40" type="readData" />
+        <parameter name="FPT-X" pos="44" type="readData" />
+        <parameter name="FPT-Z" pos="48" type="readData" />
+        <parameter name="F-CNR/$" pos="56" type="NA" />
+        <parameter name="ANG" pos="0" type="NA" />
+        <parameter name="RGH" pos="0" type="readData" />
+    </unit>
+    <unit id="180" name="SNo">
+        <parameter name="TNo" pos="20" type="readFullNumber2B" />
+        <parameter name="PAT" pos="22" type="readFullNumber2B" />
+        <parameter name="DEP-1" pos="48" type="readData" />
+        <parameter name="DEP-2/NUM" pos="0" type="NA" />
+        <parameter name="DEP-3" pos="0" type="NA" />
+        <parameter name="FIN-X" pos="0" type="NA" />
+        <parameter name="FIN-Z" pos="0" type="NA" />
+        <parameter name="C-SP" pos="60" type="readFullNumber2B" />
+        <parameter name="FR" pos="64" type="readData" />
+        <parameter name="M" pos="24" type="readFullNumber2B" />
+        <parameter name="M" pos="0" type="readFullNumber2B" />
+    </unit>
+    <unit id="19" name="HEAD">
+        <parameter name="PAT." pos="20" type="readPattern">
+            <enum name="SIN" value="1" type="" />
+            <enum name="SYNC" value="2" type="" />
+        </parameter>
+        <parameter name="HEAD" pos="22" type="readFullNumber2B" />
+        <parameter name="SPDL" pos="0" type="NA" />
+    </unit>
+    <unit id="99" name="POCKET">
+        <parameter name="MODE" pos="8" type="readPattern">
+            <enum name="XC" value="0" type="" />
+        </parameter>
+        <parameter name="POS-B" pos="32" type="readData" />
+        <parameter name="POS-C" pos="36" type="readData" />
+        <parameter name="SRV-A" pos="40" type="readData" />
+        <parameter name="BTM" pos="9" type="readFullNumber1B" />
+        <parameter name="WAL" pos="10" type="readFullNumber1B" />
+        <parameter name="FIN-A" pos="52" type="readData" />
+        <parameter name="FIN-R" pos="56" type="readData" />
+        <parameter name="INTER-R" pos="60" type="readData" blank="1" />
+        <parameter name="CHMF" pos="76" type="readData" blank="1" />
+    </unit>
+    <unit id="57" name="DRILLING">
+        <parameter name="MODE" pos="64" type="readPattern" />
+        <parameter name="POS-C" pos="36" type="readData" />
+        <parameter name="DIA" pos="40" type="readData" />
+        <parameter name="DEPTH" pos="44" type="readData" />
+        <parameter name="CHMF" pos="76" type="readData" />
+    </unit>
+    <unit id="178" name="SNo">
+        <parameter name="TOOL" pos="84" type="text" />
+        <parameter name="NOM-Ø" pos="36" type="readData" />
+        <parameter name="APRCH-1" pos="0" type="NA" />
+        <parameter name="APRCH-2" pos="0" type="NA" />
+        <parameter name="PK-DEP" pos="48" type="readData" />
+        <parameter name="DEP-A" pos="0" type="NA" />
+        <parameter name="WID-R" pos="52" type="readData" />
+        <parameter name="C-SP" pos="60" type="readFullNumber2B" />
+        <parameter name="FR" pos="64" type="readData" />
+        <parameter name="M" pos="24" type="readFullNumber2B" />
+    </unit>
+    <unit id="201" name="FIG">
+        <parameter name="PTN" pos="8" type="readPattern">
+            <enum name="LINE" value="32" type="" />
+            <enum name="ARC" value="33" type="" />
+        </parameter>
+        <parameter name="SHIFT-Z" pos="68" type="readData" />
+        <parameter name="R/x" pos="40" type="readData" />
+        <parameter name="C/y" pos="44" type="readData" />
+        <parameter name="R/th" pos="56" type="readData" blank="1" />
+        <parameter name="I" pos="0" type="blank" />
+        <parameter name="J" pos="0" type="blank" />
+        <parameter name="P" pos="0" type="blank" />
+        <parameter name="CNR" pos="0" type="blank" />
+        <parameter name="ATTRIB" pos="52" type="readPattern">
+            <enum name="CLOSED" value="0" type="" />
+        </parameter>
+        <parameter name="FR" pos="64" type="readData" />
+    </unit>
+    <unit id="174" name="FIG">
+        <parameter name="PTN" pos="8" type="readPattern" />
+        <parameter name="SPT-R/x" pos="36" type="readData" />
+        <parameter name="SPT-C/y" pos="44" type="readData" />
+        <parameter name="SPT-Z" pos="40" type="readData" />
+        <parameter name="NUM." pos="48" type="readData" />
+        <parameter name="ANG" pos="52" type="readData" />
+    </unit>
+    <unit id="181" name="SNo">
+        <parameter name="TOOL" pos="84" type="text" />
+        <parameter name="NOM-Ø" pos="64" type="readData" />
+        <parameter name="APRCH-1" pos="48" type="readData" />
+        <parameter name="APRCH-2" pos="52" type="readData" />
+        <parameter name="PK-DEP" pos="56" type="readData" />
+        <parameter name="DEP-A" pos="60" type="readData" />
+        <parameter name="WID-R" pos="76" type="readData" />
+        <parameter name="C-SP" pos="88" type="readFullNumber2B" />
+        <parameter name="FR" pos="92" type="readData" />
+        <parameter name="M" pos="24" type="readFullNumber2B" />
+    </unit>
+    <unit id="182" name="SNo">
+        <parameter name="TOOL" pos="84" type="text" />
+        <parameter name="NOM-Ø" pos="64" type="readData" />
+        <parameter name="HOLE-Ø" pos="48" type="readData" />
+        <parameter name="HOLE-DEP" pos="52" type="readData" />
+        <parameter name="PRE-DIA" pos="56" type="readData" />
+        <parameter name="PRE-DEP" pos="60" type="readData" />
+        <parameter name="DEPTH" pos="76" type="readData" />
+        <parameter name="C-SP" pos="88" type="readFullNumber2B" />
+        <parameter name="FR" pos="92" type="readData" />
+        <parameter name="M" pos="24" type="readFullNumber2B" />
+    </unit>
+    <unit id="64" name="LINE CTR">
+        <parameter name="MODE" pos="20" type="readPattern">
+            <enum name="XC" value="66" type="" />
+            <enum name="ZY" value="68" type="" />
+            <enum name="XY" value="69" type="" />
+        </parameter>
+        <parameter name="POS-C" pos="96" type="readData" zero="1" />
+        <parameter name="SRV-A" pos="40" type="readData" />
+        <parameter name="SRV-R" pos="44" type="readData" />
+        <parameter name="RGH" pos="17" type="readFullNumber1B" />
+        <parameter name="FIN-A" pos="52" type="readData" />
+        <parameter name="START" pos="8" type="readPattern">
+            <enum name="OPEN" value="0" type="" />
+        </parameter>
+        <parameter name="END" pos="9" type="readPattern">
+            <enum name="OPEN" value="0" type="" />
+        </parameter>
+    </unit>
+    <unit id="202" name="FIG">
+        <parameter name="PTN" pos="8" type="readPattern">
+            <enum name="LINE" value="32" type="" />
+            <enum name="ARC" value="33" type="" />
+        </parameter>
+        <parameter name="SHIFT-R" pos="72" type="readData" />
+        <parameter name="Z" pos="40" type="readData" />
+        <parameter name="Y" pos="44" type="readData" />
+        <parameter name="R/th" pos="0" type="blank" />
+        <parameter name="I" pos="0" type="blank" />
+        <parameter name="J" pos="0" type="blank" />
+        <parameter name="P" pos="0" type="blank" />
+        <parameter name="CNR" pos="0" type="blank" />
+        <parameter name="R-FEED" pos="0" type="blank" />
+        <parameter name="RGH" pos="0" type="blank" />
+    </unit>
+</data>

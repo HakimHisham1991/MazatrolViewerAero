@@ -1,0 +1,988 @@
+;R.S. 10.02.2004  Prog mesure TRAORI KX100
+
+PROC MESURE_TRAORI(INT V_CHOIX,INT V_TRANSFORMATION)SAVE; DISPLOF
+DEF REAL V_DIF_X,V_DIF_Y
+DEF REAL V_LONG,V_INT,V_RAYON
+DEF REAL V_MESURE_POS_C[15]
+DEF REAL V_MESURE_[15]
+DEF REAL V_MESURE_B[20]
+DEF REAL V_MESURE_Z[15]
+DEF INT V_TNr,ERROR
+DEF STRING[20] V_T_NAME
+DEF REAL FACTEUR_CONVERSION=25.4
+DEF BOOL MEM_SYSMES_10240
+DEF INT MEM_SCAL_SYS
+DEF REAL V_CALCUL[10]
+DEF INT V_DEC
+DEF STRING[60] REPERTOIRE="/_N_CUS_DIR/_N_MEMOIRE_DEC_SPF"
+DEF INT V_MIRROR[5]
+DEF REAL V_TR[5],V_FI[5],V_RT[3],V_SC[5]
+DEF STRING[50] V_TEXTE_MIRROR
+DEF REAL V_POS_SPHERE_X=-49.74
+DEF REAL V_POS_SPHERE_Y=-1702.055
+DEF REAL V_POS_SPHERE_Z=-855.955
+DEF REAL V_LONG_BROCHE_THEO=-360
+DEF REAL V_TOLERANCE=0.5
+DEF REAL V_DIGIT=10000
+
+;MESURE_TRAORI(1,1)  ou  MESURE_TRAORI(2,1)
+;PREMIERE VARIABLE       ;1 => Memorise les decalage dans spf.dir
+                         ;2 => Memorise les dec dans spf.dir et modifie les parametres du Traori et cycle800
+;DEUXIEME VARIABLE       ;1 => TRAORI(1)
+                         ;2 => TRAORI(2)
+
+
+
+;PROT_OFF_M6
+
+G75 Z0
+G75 B0 C0
+
+
+MEM_SYSMES_10240=$MN_SCALING_SYSTEM_IS_METRIC
+MEM_SCAL_SYS=$P_GG[13]
+
+IF MEM_SYSMES_10240==0
+   MSG("EFFECTUER LA MESURE DANS LE SYSTEME METRIC")
+   M0
+   M30
+ELSE
+   G710
+ENDIF
+
+;1=Base en Metric    0=Base en Inch
+
+
+V_TNr=$A_INA[2]
+V_LONG=$TC_DP3[V_TNr,1]
+V_RAYON=$TC_DP6[V_TNr,1]
+V_T_NAME=$TC_TP2[V_TNr]
+STOPRE
+
+     IF $P_DRYRUN==1 GOTOF FIN
+     IF $P_SEARCH==1 GOTOF FIN
+     IF $P_SIM==1 GOTOF FIN
+     IF _CHBIT[8]==0 GOTOF SUITE1
+     V_INT=-1
+     GOTOF SUITE2
+     SUITE1:
+     V_INT=1
+     SUITE2:
+     S500 M3
+     G4 F2
+     SPOS=0
+     M69
+     G60
+     G90
+
+M69
+CYCLE800(,"0",,,,,,,,,,,,)
+
+;************          MEMORISATION DECALAGE          **************
+V_DEC=$P_UIFRNUM
+V_MIRROR[0]=$P_UIFR[V_DEC,X,MI]
+IF V_MIRROR[0]==1
+   V_TEXTE_MIRROR="X"
+ELSE
+   V_TEXTE_MIRROR=""
+ENDIF
+V_MIRROR[1]=$P_UIFR[V_DEC,Y,MI]
+IF V_MIRROR[1]==1
+   IF V_TEXTE_MIRROR<>""
+      V_TEXTE_MIRROR=""<<V_TEXTE_MIRROR<<",Y"
+   ELSE
+      V_TEXTE_MIRROR=""<<V_TEXTE_MIRROR<<"Y"
+   ENDIF
+ENDIF
+V_MIRROR[2]=$P_UIFR[V_DEC,Z,MI]
+IF V_MIRROR[2]==1
+   IF V_TEXTE_MIRROR<>""
+      V_TEXTE_MIRROR=""<<V_TEXTE_MIRROR<<",Z"
+   ELSE
+      V_TEXTE_MIRROR=""<<V_TEXTE_MIRROR<<"Z"
+   ENDIF
+ENDIF
+V_MIRROR[3]=$P_UIFR[V_DEC,B,MI]
+IF V_MIRROR[3]==1
+   IF V_TEXTE_MIRROR<>""
+      V_TEXTE_MIRROR=""<<V_TEXTE_MIRROR<<",B"
+   ELSE
+      V_TEXTE_MIRROR=""<<V_TEXTE_MIRROR<<"B"
+   ENDIF
+ENDIF
+V_MIRROR[4]=$P_UIFR[V_DEC,C,MI]
+IF V_MIRROR[4]==1
+   IF V_TEXTE_MIRROR<>""
+      V_TEXTE_MIRROR=""<<V_TEXTE_MIRROR<<",C"
+   ELSE
+      V_TEXTE_MIRROR=""<<V_TEXTE_MIRROR<<"C"
+   ENDIF
+ENDIF
+V_TR[0]=$P_UIFR[V_DEC,X,TR]
+V_TR[1]=$P_UIFR[V_DEC,Y,TR]
+V_TR[2]=$P_UIFR[V_DEC,Z,TR]
+V_TR[3]=$P_UIFR[V_DEC,B,TR]
+V_TR[4]=$P_UIFR[V_DEC,C,TR]
+V_FI[0]=$P_UIFR[V_DEC,X,FI]
+V_FI[1]=$P_UIFR[V_DEC,Y,FI]
+V_FI[2]=$P_UIFR[V_DEC,Z,FI]
+V_FI[3]=$P_UIFR[V_DEC,B,FI]
+V_FI[4]=$P_UIFR[V_DEC,C,FI]
+V_RT[0]=$P_UIFR[V_DEC,X,RT]
+V_RT[1]=$P_UIFR[V_DEC,Y,RT]
+V_RT[2]=$P_UIFR[V_DEC,Z,RT]
+V_SC[0]=$P_UIFR[V_DEC,X,SC]
+V_SC[1]=$P_UIFR[V_DEC,Y,SC]
+V_SC[2]=$P_UIFR[V_DEC,Z,SC]
+V_SC[3]=$P_UIFR[V_DEC,B,SC]
+V_SC[4]=$P_UIFR[V_DEC,C,SC]
+STOPRE
+DELETE(ERROR,&REPERTOIRE)
+DEB_ECRIRE_1:
+WRITE (ERROR,&REPERTOIRE,";MEMORISATION DECALAGE ORIGINE  "<<$A_DAY<<"."<<$A_MONTH<<"."<<$A_YEAR<<" "<<$A_HOUR<<"H"<<$A_MINUTE)
+IF $MN_MM_FRAME_FINE_TRANS==1
+   WRITE (ERROR,&REPERTOIRE,"$P_UIFR["<<V_DEC<<"]=CTRANS(X,"<<V_TR[0]<<",Y,"<<V_TR[1]<<",Z,"<<V_TR[2]<<",B,"<<V_TR[3]<<",C,"<<V_TR[4]<<"):CFINE(X,"<<V_FI[0]<<",Y,"<<V_FI[1]<<",Z,"<<V_FI[2]<<",B,"<<V_FI[3]<<",C,"<<V_FI[4]<<"):CROT(X,"<<V_RT[0]<<",Y,"<<V_RT[1]<<",Z,"<<V_RT[2]<<"):CSCALE(X,"<<V_SC[0]<<",Y,"<<V_SC[1]<<",Z,"<<V_SC[2]<<",B,"<<V_SC[3]<<",C,"<<V_SC[4]<<"):CMIRROR("<<V_TEXTE_MIRROR<<")")
+ELSE
+   WRITE (ERROR,&REPERTOIRE,"$P_UIFR["<<V_DEC<<"]=CTRANS(X,"<<V_TR[0]<<",Y,"<<V_TR[1]<<",Z,"<<V_TR[2]<<",B,"<<V_TR[3]<<",C,"<<V_TR[4]<<"):CROT(X,"<<V_RT[0]<<",Y,"<<V_RT[1]<<",Z,"<<V_RT[2]<<"):CSCALE(X,"<<V_SC[0]<<",Y,"<<V_SC[1]<<",Z,"<<V_SC[2]<<",B,"<<V_SC[3]<<",C,"<<V_SC[4]<<"):CMIRROR("<<V_TEXTE_MIRROR<<")")
+ENDIF
+IF V_DEC==1
+   WRITE (ERROR,&REPERTOIRE,"G54")
+ENDIF
+IF V_DEC==2
+   WRITE (ERROR,&REPERTOIRE,"G55")
+ENDIF
+IF V_DEC==3
+   WRITE (ERROR,&REPERTOIRE,"G56")
+ENDIF
+IF V_DEC==4
+   WRITE (ERROR,&REPERTOIRE,"G57")
+ENDIF
+WRITE (ERROR,&REPERTOIRE,"M17")
+FIN_ECRIRE_1:
+IF ERROR==0  GOTOF SUITE_1
+IF ERROR==10
+   DELETE(ERROR,&REPERTOIRE)
+      IF ERROR
+         MSG ("Erreur Ecriture Numero:"<<ERROR<<"")
+         M0
+         STOPRE
+      ENDIF
+   G4 F1
+   STOPRE
+   REPEAT DEB_ECRIRE_1 FIN_ECRIRE_1
+ELSE
+   MSG ("Erreur Ecriture Numero:"<<ERROR<<"")
+   M0
+   STOPRE
+ENDIF
+SUITE_1:
+TRAFOOF
+TRANS
+ROT
+
+;***********************************************************
+
+ETALONNAGE:
+     G500
+     G75 Z0
+
+CENTRAGE_SPHERE:
+IF V_TRANSFORMATION==1
+   M27
+   M29
+ENDIF
+IF V_TRANSFORMATION==2
+   M26
+   M28
+ENDIF
+IF (V_TRANSFORMATION<>1) AND (V_TRANSFORMATION<>2)
+   MSG("MAUVAISE VALEUR DANS V_TRANSFORMATION    "<<V_TRANSFORMATION<<"")
+   M0
+   M17
+ENDIF
+     G75 Z0
+     MEAS=V_INT G0 F=3000 Y0 X0 SUPA
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     MEAS=V_INT G0 F=2000 C0 B0 SUPA
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     MEAS=V_INT G0 F=2000 Y=V_POS_SPHERE_Y SUPA
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     MEAS=V_INT G0 F=2000 X=V_POS_SPHERE_X SUPA
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     MEAS=V_INT G0 F=2000 Z=V_POS_SPHERE_Z+100 SUPA
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     MEAS=V_INT G1 F=2000 Z=V_POS_SPHERE_Z+25+6 SUPA D1
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+;************        alesage            ******************
+    MEAS=V_INT G1 F=2000 Z=V_POS_SPHERE_Z SUPA D1
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+
+
+     $P_UIFR[V_DEC]=CTRANS(X,V_POS_SPHERE_X,Y,V_POS_SPHERE_Y,Z,V_POS_SPHERE_Z)
+IF V_DEC==1
+   G54
+ENDIF
+IF V_DEC==2
+   G55
+ENDIF
+IF V_DEC==3
+   G56
+ENDIF
+IF V_DEC==4
+   G57
+ENDIF
+     _MVAR=101         ;Détermination de DO avec cylindre
+     _SETVAL=12        ;Ø du cylindre
+ ;    _ID=-21           ;Profondeur de palpage en incrémentale
+     _KNUM=V_DEC           ;Correction de DO actif
+     _TSA=20            ;Zone de fiabilité
+     _PRNUM=1          ;Numéro du palpeur
+     _NMSP=1           ;Nombre de mesure au même point
+     _VMS=300          ;Vitesse de mesure
+     _FA=8             ;Facteur de course de mesure 1 => 2mm
+     CYCLE977          ;Cycle de mesure
+     STOPRE
+     IF V_M0_PIECE==1
+        M0
+     ENDIF
+IF V_DEC==1
+   G54
+ENDIF
+IF V_DEC==2
+   G55
+ENDIF
+IF V_DEC==3
+   G56
+ENDIF
+IF V_DEC==4
+   G57
+ENDIF
+;     MEAS=V_INT G1 F=2000 X0 Y0
+;     STOPRE
+;     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+;     STOPRE
+;     _MVAR=100        ;Détermination de DO par mesure de surface
+;     _SETVAL=25   ;Position à mesurer / OP
+;     _MA=3                  ;Axe de mesure 3 => Z
+;     _KNUM=V_DEC                ;correction auto de DO actif
+;     _EVNUM=20              ;Valeur empirique
+;     _TSA=20                ;Zone de fiabilité
+;     _PRNUM=1               ;Numéro du palpeur
+;     _NMSP=1                ;Nombre de mesure au même point
+;     _VMS=300          ;Vitesse de mesure
+;     _FA=10             ;Facteur de course de mesure 1 => 2mm
+;     CYCLE978              ;Détermination DO en Z
+;     V_MESURE_Z[4]=$AA_MM[Z]
+IF V_DEC==1
+   G54
+ENDIF
+IF V_DEC==2
+   G55
+ENDIF
+IF V_DEC==3
+   G56
+ENDIF
+IF V_DEC==4
+   G57
+ENDIF
+
+
+LABEL_MESURE_AXE_C:
+
+
+;**************   Mesure centre pos C-180   *****************
+
+     MEAS=V_INT G1 F=2000 Z21 D1
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     MSG("Mesure Position Axe C")
+     MEAS=V_INT G1 F=2000 B0 C-180 SUPA
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     MEAS=V_INT G1 F=2000 Y0
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     MEAS=V_INT G1 F=2000  X0  ;X20
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+;************        alesage            ******************
+    MEAS=V_INT G1 F=2000 Z=V_POS_SPHERE_Z SUPA D1
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+;     ROT Z180   ne fonctionne pas
+
+     G90
+     _MVAR=1         ;Détermination de DO avec cylindre
+     _SETVAL=12        ;Ø du cylindre
+ ;    _ID=-21           ;Profondeur de palpage en incrémentale
+     _KNUM=0           ;Correction de DO actif
+     _TSA=20            ;Zone de fiabilité
+     _PRNUM=1          ;Numéro du palpeur
+     _NMSP=1           ;Nombre de mesure au même point
+     _VMS=300          ;Vitesse de mesure
+     _FA=8             ;Facteur de course de mesure 1 => 2mm
+     CYCLE977          ;Cycle de mesure
+     STOPRE
+     IF V_M0_PIECE==1
+        M0
+     ENDIF
+V_MESURE_POS_C[1]=_OVR[5]/2   ;inversion signe si rot Z-180
+V_MESURE_POS_C[2]=_OVR[6]/2
+
+CASE V_CHOIX OF 1 GOTOF SAUT_MEM_CY 2 GOTOF SAUT_PARAM_CY DEFAULT GOTOF DEF1
+
+SAUT_MEM_CY:
+GOTOF MESURE_AXE_B
+
+SAUT_PARAM_CY:
+GOTOF MESURE_AXE_B
+
+MESURE_AXE_B:
+
+V_DIF_X=V_MESURE_POS_C[1]
+V_DIF_Y=V_MESURE_POS_C[2]
+
+
+GOTOF FIN_MESURE_AXE_C
+
+
+MESURE_B:
+     ;**************************************
+     MEAS=V_INT G1 F=2000 C0 B0 SUPA
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+;**************   Mesure centre pos C90 B90   *****************
+IF V_TRANSFORMATION==1
+   TRAORI(1)
+   M27   ;Deblocage axe C
+   M29   ;Deblocage axe B
+ENDIF
+IF V_TRANSFORMATION==2
+   TRAORI(2)   
+   M26   ;Blocage axe C
+   M28   ;Blocage axe B
+ENDIF
+     ;**************************************
+     MEAS=V_INT G1 F=2000 C90 SUPA
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     MEAS=V_INT G1 F=2000 C90 B90 SUPA
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     MEAS=V_INT G1 F=2000 Z21
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     MEAS=V_INT G1 F=2000 X20 Y0
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     MEAS=V_INT G1 F=2000 Z0 D1
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     _MVAR=0                   ;mesure de surface
+     _SETVAL=15    ;Position à mesurer / OP
+     _TUL=1  _TLL=-1     ;Tolérance Min/Max 
+     _MA=1                     ;Axe de mesure 1 => X
+     _KNUM=0                   ;correction auto de DO actif
+     _EVNUM=20                 ;Valeur empirique
+     _TSA=20                   ;Zone de fiabilité
+     _TDIF=100                  ;Contrôle d'écart dimensionnel
+     _PRNUM=1                ;Numéro du palpeur
+     _NMSP=1                   ;Nombre de mesure au même point
+     _VMS=300                   ;Vitesse de mesure
+     _FA=10                 ;Facteur de course de mesure 1 => 2mm
+     CYCLE978              ;Détermination en Y
+     STOPRE
+     V_MESURE_B[1]=$AA_MM[X1]   ;Position X1
+     ;**************************************
+     MEAS=V_INT G1 F=2000 Z21
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     MEAS=V_INT G1 F=2000 X0 Y6
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     _MVAR=0                   ;mesure de surface
+     _SETVAL=15    ;Position à mesurer / OP
+     _TUL=1  _TLL=-1     ;Tolérance Min/Max 
+     _MA=3                     ;Axe de mesure 1 => X
+     _KNUM=0                   ;correction auto de DO actif
+     _EVNUM=20                 ;Valeur empirique
+     _TSA=20                   ;Zone de fiabilité
+     _TDIF=100                  ;Contrôle d'écart dimensionnel
+     _PRNUM=1                ;Numéro du palpeur
+     _NMSP=1                   ;Nombre de mesure au même point
+     _VMS=300                   ;Vitesse de mesure
+     _FA=10                 ;Facteur de course de mesure 1 => 2mm
+     CYCLE978              ;Détermination en Y
+     STOPRE
+     V_MESURE_B[2]=$AA_MM[Z]   ;Position Z1
+     ;**************************************
+     MEAS=V_INT G1 F=2000 Z21
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     MEAS=V_INT G1 F=2000 X-20 Y0
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     MEAS=V_INT G1 F=2000 Z0 D1
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     _MVAR=0                   ;mesure de surface
+     _SETVAL=-15    ;Position à mesurer / OP
+     _TUL=1  _TLL=-1     ;Tolérance Min/Max 
+     _MA=1                     ;Axe de mesure 1 => X
+     _KNUM=0                   ;correction auto de DO actif
+     _EVNUM=20                 ;Valeur empirique
+     _TSA=20                   ;Zone de fiabilité
+     _TDIF=100                  ;Contrôle d'écart dimensionnel
+     _PRNUM=1                ;Numéro du palpeur
+     _NMSP=1                   ;Nombre de mesure au même point
+     _VMS=300                   ;Vitesse de mesure
+     _FA=10                 ;Facteur de course de mesure 1 => 2mm
+     CYCLE978              ;Détermination en Y
+     STOPRE
+     V_MESURE_B[3]=$AA_MM[X1]    ;Position X2
+     MEAS=V_INT G1 F=2000 Z-21 Y19
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     MEAS=V_INT G1 F=2000 X0 Y6
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     _MVAR=0                   ;mesure de surface
+     _SETVAL=-15    ;Position à mesurer / OP
+     _TUL=1  _TLL=-1     ;Tolérance Min/Max 
+     _MA=3                     ;Axe de mesure 1 => X
+     _KNUM=0                   ;correction auto de DO actif
+     _EVNUM=20                 ;Valeur empirique
+     _TSA=20                   ;Zone de fiabilité
+     _TDIF=100                  ;Contrôle d'écart dimensionnel
+     _PRNUM=1                ;Numéro du palpeur
+     _NMSP=1                   ;Nombre de mesure au même point
+     _VMS=300                   ;Vitesse de mesure
+     _FA=10                 ;Facteur de course de mesure 1 => 2mm
+     CYCLE978              ;Détermination en Y
+     STOPRE
+     V_MESURE_B[4]=$AA_MM[Z]   ;Position Z2
+     V_MESURE_B[5]=(V_MESURE_B[1]+V_MESURE_B[3])/2   ;Centre X
+     V_MESURE_B[6]=(V_MESURE_B[2]+V_MESURE_B[4])/2   ;Centre Z
+     ;**************************************
+     MEAS=V_INT G1 F=2000 X20 Y19
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************   
+     MEAS=V_INT G1 F=2000 Z30
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     MEAS=V_INT G1 F=2000 B0 SUPA
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     MEAS=V_INT G1 F=2000 C-90 SUPA
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     MEAS=V_INT G1 F=2000 C-90 B-90 SUPA
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     MEAS=V_INT G1 F=2000 X20 Y0
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     MEAS=V_INT G1 F=2000 Z0 D1
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     _MVAR=0                   ;mesure de surface
+     _SETVAL=15    ;Position à mesurer / OP
+     _TUL=1  _TLL=-1     ;Tolérance Min/Max 
+     _MA=1                     ;Axe de mesure 1 => X
+     _KNUM=0                   ;correction auto de DO actif
+     _EVNUM=20                 ;Valeur empirique
+     _TSA=20                   ;Zone de fiabilité
+     _TDIF=100                 ;Contrôle d'écart dimensionnel
+     _PRNUM=1                ;Numéro du palpeur
+     _NMSP=1                   ;Nombre de mesure au même point
+     _VMS=300                   ;Vitesse de mesure
+     _FA=10                 ;Facteur de course de mesure 1 => 2mm
+     CYCLE978              ;Détermination en Y
+     STOPRE
+     V_MESURE_B[7]=$AA_MM[X1]   ;Position X1
+     ;**************************************
+     MEAS=V_INT G1 F=2000 Z21
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     MEAS=V_INT G1 F=2000 X0 Y6
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     _MVAR=0                   ;mesure de surface
+     _SETVAL=15    ;Position à mesurer / OP
+     _TUL=1  _TLL=-1     ;Tolérance Min/Max 
+     _MA=3                     ;Axe de mesure 1 => X
+     _KNUM=0                   ;correction auto de DO actif
+     _EVNUM=20                 ;Valeur empirique
+     _TSA=20                   ;Zone de fiabilité
+     _TDIF=100                  ;Contrôle d'écart dimensionnel
+     _PRNUM=1                ;Numéro du palpeur
+     _NMSP=1                   ;Nombre de mesure au même point
+     _VMS=300                   ;Vitesse de mesure
+     _FA=10                 ;Facteur de course de mesure 1 => 2mm
+     CYCLE978              ;Détermination en Y
+     STOPRE
+     V_MESURE_B[8]=$AA_MM[Z]   ;Position Z1
+     ;**************************************
+     MEAS=V_INT G1 F=2000 Z21
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     MEAS=V_INT G1 F=2000 X-20 Y0
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     MEAS=V_INT G1 F=2000 Z0 D1
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     _MVAR=0                   ;mesure de surface
+     _SETVAL=-15    ;Position à mesurer / OP
+     _TUL=1  _TLL=-1     ;Tolérance Min/Max 
+     _MA=1                     ;Axe de mesure 1 => X
+     _KNUM=0                   ;correction auto de DO actif
+     _EVNUM=20                 ;Valeur empirique
+     _TSA=20                   ;Zone de fiabilité
+     _TDIF=100                 ;Contrôle d'écart dimensionnel
+     _PRNUM=1                ;Numéro du palpeur
+     _NMSP=1                   ;Nombre de mesure au même point
+     _VMS=300                   ;Vitesse de mesure
+     _FA=10                 ;Facteur de course de mesure 1 => 2mm
+     CYCLE978              ;Détermination en Y
+     STOPRE
+     V_MESURE_B[9]=$AA_MM[X1]    ;Position X2
+     ;**************************************
+     MEAS=V_INT G1 F=2000 Z-21 Y19
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     MEAS=V_INT G1 F=2000 X0
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     MEAS=V_INT G1 F=2000 Y6
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;*********************************************
+
+     _MVAR=0                   ;mesure de surface
+     _SETVAL=-15    ;Position à mesurer / OP
+     _TUL=1  _TLL=-1     ;Tolérance Min/Max 
+     _MA=3                     ;Axe de mesure 1 => X
+     _KNUM=0                   ;correction auto de DO actif
+     _EVNUM=20                 ;Valeur empirique
+     _TSA=20                   ;Zone de fiabilité
+     _TDIF=100                  ;Contrôle d'écart dimensionnel
+     _PRNUM=1                ;Numéro du palpeur
+     _NMSP=1                   ;Nombre de mesure au même point
+     _VMS=300                   ;Vitesse de mesure
+     _FA=10                 ;Facteur de course de mesure 1 => 2mm
+     CYCLE978              ;Détermination en Y
+     STOPRE
+     V_MESURE_B[10]=$AA_MM[Z]   ;Position Z2
+     V_MESURE_B[11]=(V_MESURE_B[7]+V_MESURE_B[9])/2   ;Centre X
+     V_MESURE_B[12]=(V_MESURE_B[8]+V_MESURE_B[10])/2   ;Centre Z
+     V_MESURE_B[13]=(V_MESURE_B[5]-V_MESURE_B[11])/2            ;Difference centre X
+     V_MESURE_B[14]=(V_MESURE_B[6]-V_MESURE_B[12])/2            ;Difference centre Z
+     V_MESURE_B[15]=(V_MESURE_B[6]+V_MESURE_B[12])/2            ;Difference centre Z
+     V_MESURE_Z[4]=((V_MESURE_B[6]+V_MESURE_B[12])/2)-$P_UIFR[V_DEC,Z,TR]  ;+V_RAYON ;Long broche Z  ????
+
+     ;**************************************
+     MEAS=V_INT G1 F=2000 Y19
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     MEAS=V_INT G1 F=2000 C-90 B-90 SUPA
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     G53 MEAS=V_INT G1 F=2000 Z=(V_MESURE_B[12]-$MC_TRAFO5_PART_OFFSET_1[2]) X=V_MESURE_B[11]
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     _MVAR=0                   ;mesure de surface
+     _SETVAL=15    ;Position à mesurer / OP
+     _TUL=1  _TLL=-1     ;Tolérance Min/Max 
+     _MA=2                     ;Axe de mesure 1 => X
+     _KNUM=0                   ;correction auto de DO actif
+     _EVNUM=20                 ;Valeur empirique
+     _TSA=20                   ;Zone de fiabilité
+     _TDIF=100                  ;Contrôle d'écart dimensionnel
+     _PRNUM=1                ;Numéro du palpeur
+     _NMSP=1                   ;Nombre de mesure au même point
+     _VMS=300                   ;Vitesse de mesure
+     _FA=10                 ;Facteur de course de mesure 1 => 2mm
+     CYCLE978              ;Détermination en Y
+     STOPRE
+     V_MESURE_Z[1]=$AA_MM[Y]   ;Position Y1
+     ;**************************************
+     MEAS=V_INT G1 F=2000 Y19
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     MEAS=V_INT G1 F=2000 B0 SUPA
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     MEAS=V_INT G1 F=2000 C90 SUPA
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     MEAS=V_INT G1 F=2000 C90 B90 SUPA
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     G53 MEAS=V_INT G1 F=2000 Z=(V_MESURE_B[6]-$MC_TRAFO5_PART_OFFSET_1[2]) X=V_MESURE_B[5]
+     STOPRE
+     IF $AC_MEA[ABS(V_INT)]==TRUE GOTOF DEF14
+     STOPRE
+     ;**************************************
+     _MVAR=0                   ;mesure de surface
+     _SETVAL=15    ;Position à mesurer / OP
+     _TUL=1  _TLL=-1     ;Tolérance Min/Max 
+     _MA=2                     ;Axe de mesure 1 => X
+     _KNUM=0                   ;correction auto de DO actif
+     _EVNUM=20                 ;Valeur empirique
+     _TSA=20                   ;Zone de fiabilité
+     _TDIF=100                  ;Contrôle d'écart dimensionnel
+     _PRNUM=1                ;Numéro du palpeur
+     _NMSP=1                   ;Nombre de mesure au même point
+     _VMS=300                   ;Vitesse de mesure
+     _FA=10                 ;Facteur de course de mesure 1 => 2mm
+     CYCLE978              ;Détermination en Y
+     STOPRE
+     V_MESURE_Z[2]=$AA_MM[Y]   ;Position Y2
+     V_MESURE_Z[3]=(V_MESURE_Z[1]+V_MESURE_Z[2])/2    ;Moyenne longueur broche
+;     V_MESURE_Z[4]=-((V_MESURE_Z[3]-$P_UIFR[V_DEC,Y,TR])-V_LONG-15)   ;longueur broche
+     V_MESURE_Z[5]=-((V_MESURE_Z[3]-$P_UIFR[V_DEC,Y,TR])-V_LONG-15)   ;longueur broche
+
+FIN_MESURE_AXE_C:
+
+;*******   TEST  SECU    *********
+;V_MESURE_Z[4]=(ROUND(V_MESURE_Z[4]*V_DIGIT))/V_DIGIT
+V_DIF_X=(ROUND(V_DIF_X*V_DIGIT))/V_DIGIT
+V_DIF_Y=(ROUND(V_DIF_Y*V_DIGIT))/V_DIGIT
+;V_MESURE_B[14]=(ROUND(V_MESURE_B[14]*V_DIGIT))/V_DIGIT
+;V_MESURE_POS_C[3]=V_LONG_BROCHE_THEO+V_TOLERANCE
+;V_MESURE_POS_C[4]=V_LONG_BROCHE_THEO-V_TOLERANCE
+V_MESURE_POS_C[5]=V_TOLERANCE
+V_MESURE_POS_C[6]=-V_TOLERANCE
+
+;IF V_MESURE_Z[4]>V_MESURE_POS_C[3]
+;   MSG("MESURE HORS TOLERANCE")
+;   M0
+;   STOPRE
+;   GOTOF FIN
+;   M17
+;ENDIF
+;IF V_MESURE_Z[4]<V_MESURE_POS_C[4]
+;   MSG("MESURE HORS TOLERANCE")
+;   M0
+;   STOPRE
+;   GOTOF FIN
+;   M17
+;ENDIF
+IF V_DIF_X>V_MESURE_POS_C[5]
+   MSG("MESURE HORS TOLERANCE")
+   M0
+   STOPRE
+   GOTOF FIN
+   M17
+ENDIF
+IF V_DIF_X<V_MESURE_POS_C[6]
+   MSG("MESURE HORS TOLERANCE")
+   M0
+   STOPRE
+   GOTOF FIN
+   M17
+ENDIF
+IF V_DIF_Y>V_MESURE_POS_C[5]
+   MSG("MESURE HORS TOLERANCE")
+   M0
+   STOPRE
+   GOTOF FIN
+   M17
+ENDIF
+IF V_DIF_Y<V_MESURE_POS_C[6]
+   MSG("MESURE HORS TOLERANCE")
+   M0
+   STOPRE
+   GOTOF FIN
+   M17
+ENDIF
+;IF V_MESURE_B[14]>V_MESURE_POS_C[5]
+;   MSG("MESURE HORS TOLERANCE")
+;   M0
+;   STOPRE
+;   GOTOF FIN
+;   M17
+;ENDIF
+;IF V_MESURE_B[14]<V_MESURE_POS_C[6]
+;   MSG("MESURE HORS TOLERANCE")
+;   M0
+;   STOPRE
+;   GOTOF FIN
+;   M17
+;ENDIF
+;*********************************
+
+
+CASE V_CHOIX OF 1 GOTOF SAUT_FIN1 2 GOTOF SAUT_FIN2 DEFAULT GOTOF DEF1
+
+SAUT_FIN1:
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF"," ")
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF",""<<$A_DAY<<"."<<$A_MONTH<<"."<<$A_YEAR<<" "<<$A_HOUR<<"H"<<$A_MINUTE<<"")
+IF V_TRANSFORMATION==1
+   WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","VALEURS TRAORI_1")
+   WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","PART_OFFSET_1[X]="<<$MC_TRAFO5_PART_OFFSET_1[0]<<" PART_OFFSET_1[Y]="<<$MC_TRAFO5_PART_OFFSET_1[1]<<"  ")
+   WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","BASE_TOOL_1[X]="<<$MC_TRAFO5_BASE_TOOL_1[0]<<" BASE_TOOL_1[Y]="<<$MC_TRAFO5_BASE_TOOL_1[1]<<"  ")
+   WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","PART_OFFSET_1[Z]="<<$MC_TRAFO5_PART_OFFSET_1[2]<<"")
+   WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","BASE_TOOL_1[Z]="<<$MC_TRAFO5_BASE_TOOL_1[2]<<"")
+   WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","JOINT_OFFSET_1[X]="<<$MC_TRAFO5_JOINT_OFFSET_1[0]<<"")
+ENDIF
+IF V_TRANSFORMATION==2
+   WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","VALEURS TRAORI_2")
+   WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","PART_OFFSET_2[X]="<<$MC_TRAFO5_PART_OFFSET_2[0]<<" PART_OFFSET_2[Y]="<<$MC_TRAFO5_PART_OFFSET_2[1]<<"  ")
+   WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","BASE_TOOL_2[X]="<<$MC_TRAFO5_BASE_TOOL_2[0]<<" BASE_TOOL_2[Y]="<<$MC_TRAFO5_BASE_TOOL_2[1]<<"  ")
+   WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","PART_OFFSET_2[Z]="<<$MC_TRAFO5_PART_OFFSET_2[2]<<"")
+   WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","BASE_TOOL_2[Z]="<<$MC_TRAFO5_BASE_TOOL_2[2]<<"")
+   WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","JOINT_OFFSET_2[X]="<<$MC_TRAFO5_JOINT_OFFSET_2[0]<<"")
+   WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","NOUVELLES VALEURS TRAORI_2")
+ENDIF
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","RESULTAT DE LA MESURE")
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","Essai Palpage Delta X="<<V_DIF_X<<" Delta Y="<<V_DIF_Y<<"")
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","Longueur broche="<<V_MESURE_Z[4]<<"   Decalage XB="<<V_MESURE_B[14]<<"")
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","V_MESURE_Z[5]="<<V_MESURE_Z[5]<<"")
+IF ERROR==0  GOTOF END_WRITE
+IF ERROR==10
+   DELETE(ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF")
+      IF ERROR
+         MSG ("Erreur Ecriture Numero:"<<ERROR<<"")
+         M0
+         STOPRE
+      ENDIF
+   G4 F1
+   STOPRE
+    WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF",""<<$A_DAY<<"."<<$A_MONTH<<"."<<$A_YEAR<<" "<<$A_HOUR<<"H"<<$A_MINUTE<<"")
+    WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","Essai Palpage Delta X="<<V_DIF_X<<" Delta Y="<<V_DIF_Y<<"")
+    WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","Longueur broche="<<V_MESURE_Z[4]<<"   Decalage XB="<<V_MESURE_B[14]<<"")
+   STOPRE
+ELSE
+   MSG ("Erreur Ecriture Numero:"<<ERROR<<"")
+   M0
+   STOPRE
+ENDIF
+END_WRITE:
+   IF V_M0_PIECE==1
+      M0
+   ENDIF
+GOTOF FIN
+
+
+SAUT_FIN2:
+TRAFOOF
+ECRIRE_RESULTAT_DEB:
+IF V_TRANSFORMATION==1
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF"," ")
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF",""<<$A_DAY<<"."<<$A_MONTH<<"."<<$A_YEAR<<" "<<$A_HOUR<<"H"<<$A_MINUTE<<"")
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","ANCIENNES VALEURS TRAORI_1")
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","PART_OFFSET_1[X]="<<$MC_TRAFO5_PART_OFFSET_1[0]<<" PART_OFFSET_1[Y]="<<$MC_TRAFO5_PART_OFFSET_1[1]<<"  ")
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","BASE_TOOL_1[X]="<<$MC_TRAFO5_BASE_TOOL_1[0]<<" BASE_TOOL_1[Y]="<<$MC_TRAFO5_BASE_TOOL_1[1]<<"  ")
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","PART_OFFSET_1[Z]="<<$MC_TRAFO5_PART_OFFSET_1[2]<<"")
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","BASE_TOOL_1[Z]="<<$MC_TRAFO5_BASE_TOOL_1[2]<<"")
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","JOINT_OFFSET_1[X]="<<$MC_TRAFO5_JOINT_OFFSET_1[0]<<"")
+STOPRE
+     M85
+     G4 F0.5
+     STOPRE
+     $MC_TRAFO5_PART_OFFSET_1[0]=V_DIF_X
+     $MC_TRAFO5_PART_OFFSET_1[1]=V_DIF_Y
+;     $MC_TRAFO5_PART_OFFSET_1[2]=V_MESURE_Z[4]
+;     $MC_TRAFO5_JOINT_OFFSET_1[0]=V_MESURE_B[14]
+;     $MC_TRAFO5_JOINT_OFFSET_1[1]=0
+;     $MC_TRAFO5_JOINT_OFFSET_1[2]=0
+     V_CALCUL[0]=-($MC_TRAFO5_PART_OFFSET_1[0]+$MC_TRAFO5_JOINT_OFFSET_1[0])
+     V_CALCUL[1]=-($MC_TRAFO5_PART_OFFSET_1[1]+$MC_TRAFO5_JOINT_OFFSET_1[1])
+     $MC_TRAFO5_BASE_TOOL_1[0]=V_CALCUL[0]
+     $MC_TRAFO5_BASE_TOOL_1[1]=V_CALCUL[1]
+;     $MC_TRAFO5_BASE_TOOL_1[2]=-$MC_TRAFO5_PART_OFFSET_1[2]
+     STOPRE
+STOPRE
+ENDIF
+IF V_TRANSFORMATION==1
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","NOUVELLES VALEURS TRAORI_1")
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","Essai Palpage Delta X="<<V_DIF_X<<" Delta Y="<<V_DIF_Y<<"")
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","PART_OFFSET_1[X]="<<$MC_TRAFO5_PART_OFFSET_1[0]<<" PART_OFFSET_1[Y]="<<$MC_TRAFO5_PART_OFFSET_1[1]<<"  ")
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","BASE_TOOL_1[X]="<<$MC_TRAFO5_BASE_TOOL_1[0]<<" BASE_TOOL_1[Y]="<<$MC_TRAFO5_BASE_TOOL_1[1]<<"  ")
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","PART_OFFSET_1[Z]="<<$MC_TRAFO5_PART_OFFSET_1[2]<<"")
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","BASE_TOOL_1[Z]="<<$MC_TRAFO5_BASE_TOOL_1[2]<<"")
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","JOINT_OFFSET_1[X]="<<$MC_TRAFO5_JOINT_OFFSET_1[0]<<"")
+ENDIF
+IF V_TRANSFORMATION==2
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF"," ")
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF",""<<$A_DAY<<"."<<$A_MONTH<<"."<<$A_YEAR<<" "<<$A_HOUR<<"H"<<$A_MINUTE<<"")
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","ANCIENNES VALEURS TRAORI_2")
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","PART_OFFSET_2[X]="<<$MC_TRAFO5_PART_OFFSET_2[0]<<" PART_OFFSET_2[Y]="<<$MC_TRAFO5_PART_OFFSET_2[1]<<"  ")
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","BASE_TOOL_2[X]="<<$MC_TRAFO5_BASE_TOOL_2[0]<<" BASE_TOOL_2[Y]="<<$MC_TRAFO5_BASE_TOOL_2[1]<<"  ")
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","PART_OFFSET_2[Z]="<<$MC_TRAFO5_PART_OFFSET_2[2]<<"")
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","BASE_TOOL_2[Z]="<<$MC_TRAFO5_BASE_TOOL_2[2]<<"")
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","JOINT_OFFSET_2[X]="<<$MC_TRAFO5_JOINT_OFFSET_2[0]<<"")
+STOPRE
+     M85
+     G4 F0.5
+     STOPRE
+     $MC_TRAFO5_PART_OFFSET_2[0]=V_DIF_X
+     $MC_TRAFO5_PART_OFFSET_2[1]=V_DIF_Y
+;     $MC_TRAFO5_PART_OFFSET_2[2]=V_MESURE_Z[4]
+;     $MC_TRAFO5_JOINT_OFFSET_2[0]=V_MESURE_B[14]
+;     $MC_TRAFO5_JOINT_OFFSET_2[1]=0
+;     $MC_TRAFO5_JOINT_OFFSET_2[2]=0
+     V_CALCUL[0]=-($MC_TRAFO5_PART_OFFSET_2[0]+$MC_TRAFO5_JOINT_OFFSET_2[0])
+     V_CALCUL[1]=-($MC_TRAFO5_PART_OFFSET_2[1]+$MC_TRAFO5_JOINT_OFFSET_2[1])
+     $MC_TRAFO5_BASE_TOOL_2[0]=V_CALCUL[0]
+     $MC_TRAFO5_BASE_TOOL_2[1]=V_CALCUL[1]
+;     $MC_TRAFO5_BASE_TOOL_2[2]=-$MC_TRAFO5_PART_OFFSET_2[2]
+     STOPRE
+     NEWCONF
+STOPRE
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","NOUVELLES VALEURS TRAORI_2")
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","Essai Palpage Delta X="<<V_DIF_X<<" Delta Y="<<V_DIF_Y<<"")
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","PART_OFFSET_2[X]="<<$MC_TRAFO5_PART_OFFSET_2[0]<<" PART_OFFSET_2[Y]="<<$MC_TRAFO5_PART_OFFSET_2[1]<<"  ")
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","BASE_TOOL_2[X]="<<$MC_TRAFO5_BASE_TOOL_2[0]<<" BASE_TOOL_2[Y]="<<$MC_TRAFO5_BASE_TOOL_2[1]<<"  ")
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","PART_OFFSET_2[Z]="<<$MC_TRAFO5_PART_OFFSET_2[2]<<"")
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","BASE_TOOL_2[Z]="<<$MC_TRAFO5_BASE_TOOL_2[2]<<"")
+WRITE (ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF","JOINT_OFFSET_2[X]="<<$MC_TRAFO5_JOINT_OFFSET_2[0]<<"")
+ENDIF
+ECRIRE_RESULTAT_FIN:
+IF ERROR==0  GOTOF END_WRITE
+IF ERROR==10
+   DELETE(ERROR,"/_N_SPF_DIR/_N_RESULTAT_MESURE_TRAORI_SPF")
+      IF ERROR
+         MSG ("Erreur Ecriture Numero:"<<ERROR<<"")
+         M0
+         STOPRE
+      ENDIF
+   G4 F1
+   STOPRE
+   REPEAT ECRIRE_RESULTAT_DEB ECRIRE_RESULTAT_FIN
+   STOPRE
+ELSE
+   MSG ("Erreur Ecriture Numero:"<<ERROR<<"")
+   M0
+   STOPRE
+ENDIF
+END_WRITE:
+     M86
+   IF V_M0_PIECE==1
+      M0
+      STOPRE
+   ENDIF
+GOTOF FIN
+
+DEF1:
+D1
+TS_DEFAUT(1)
+DEF14:
+D1
+TS_DEFAUT(14)
+
+FIN:
+CALL &REPERTOIRE
+REPERTOIRE="/_N_MPF_DIR/_N_KX100_MPF"
+STOPRE
+CALL &REPERTOIRE
+STOPRE
+REPERTOIRE="/_N_MPF_DIR/_N_BC_BLOQUE_MPF"
+STOPRE
+CALL &REPERTOIRE
+STOPRE
+REPERTOIRE="/_N_MPF_DIR/_N_BC_DEBLOQUE_MPF"
+STOPRE
+CALL &REPERTOIRE
+TRAFOOF
+G75 Z0
+G75 b0 c0
+;ZONE_PROTECTION
+M71
+D1
+RET
+
+
